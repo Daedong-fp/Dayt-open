@@ -227,7 +227,7 @@ const App = () => {
         <FadeIn className="fade-in">
           <section>
             <Kanban>
-              <KanbanImg src={Ex_KanbanImg} alt='kanbanimg' width={770} height={400} />
+              <KanbanImg src={Ex_KanbanImg} alt='kanbanimg' width={800} height={420} />
             </Kanban>
           </section>
         </FadeIn>

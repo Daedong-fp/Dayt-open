@@ -123,7 +123,7 @@ const TodoList = styled.ul`
 
 const TodoItem = styled.li`
   margin: auto;
-  padding: 8px ;
+  padding: 8px;
   margin-bottom: 20px;
   height: 50px;
   width: 320px;
@@ -147,6 +147,7 @@ const DoneBox = styled(TodoBox)`
 
 const DoneTodoItem = styled(TodoItem)`
   margin-top: 20px;
+  color: gray;
 `;
 
 const Backdrop = styled.div`
@@ -227,7 +228,7 @@ const DeleteButton = styled.img`
 
 const TodoText = styled.span`
   flex-grow: 1;
-  text-align: center; /* 텍스트 가운데 정렬 */
+  text-align: center;
   margin-left: 10px;
 `;
 
@@ -255,35 +256,60 @@ const TodoListPage = () => {
       setCurrentDate(formatDate());
     }, 1000);
 
+    // Load data from localStorage
+    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    const savedDoneTodos = JSON.parse(localStorage.getItem('doneTodos')) || [];
+    setTodos(savedTodos);
+    setDoneTodos(savedDoneTodos);
+
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    // Save data to localStorage whenever todos or doneTodos change
+    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem('doneTodos', JSON.stringify(doneTodos));
+  }, [todos, doneTodos]);
+
   const handleAddTodo = () => {
     if (newTodo.trim() !== '') {
-      setTodos([...todos, { text: newTodo, checked: false }]);
+      const newTodos = [...todos, { text: newTodo, checked: false }];
+      setTodos(newTodos);
       setNewTodo('');
       setShowPopup(false);
     }
   };
 
-  const handleCheckTodo = (index) => {
+  const handleCheckTodo = (index, isDone = false) => {
     setMovingIndex(index);
     setTimeout(() => {
-      const updatedTodos = [...todos];
-      updatedTodos[index].checked = !updatedTodos[index].checked;
-
-      if (updatedTodos[index].checked) {
-        setDoneTodos([...doneTodos, updatedTodos[index]]);
-        setTodos(todos.filter((_, i) => i !== index));
-      } else {
+      if (!isDone) {
+        const updatedTodos = [...todos];
+        const [movedTodo] = updatedTodos.splice(index, 1);
+        movedTodo.checked = true;
+        const newDoneTodos = [...doneTodos, movedTodo];
         setTodos(updatedTodos);
+        setDoneTodos(newDoneTodos);
+      } else {
+        const updatedDoneTodos = [...doneTodos];
+        const [movedTodo] = updatedDoneTodos.splice(index, 1);
+        movedTodo.checked = false;
+        const newTodos = [...todos, movedTodo];
+        setDoneTodos(updatedDoneTodos);
+        setTodos(newTodos);
       }
       setMovingIndex(null);
     }, 0);
   };
 
-  const handleDeleteTodo = (index) => {
-    setTodos(todos.filter((_, i) => i !== index));
+  const handleDeleteTodo = (index, done = false) => {
+    if (done) {
+      const newDoneTodos = doneTodos.filter((_, i) => i !== index);
+      setDoneTodos(newDoneTodos);
+    } else {
+      const newTodos = todos.filter((_, i) => i !== index);
+      setTodos(newTodos);
+    }
   };
 
   return (
@@ -323,8 +349,17 @@ const TodoListPage = () => {
           <TodoList>
             {doneTodos.map((todo, index) => (
               <DoneTodoItem key={index}>
-                <CheckBox src={checkedButton} alt="Checked" />
+                <CheckBox 
+                  src={checkedButton} 
+                  alt="Checked" 
+                  onClick={() => handleCheckTodo(index, true)}
+                />
                 <TodoText>{todo.text}</TodoText>
+                <DeleteButton 
+                  src={deleteButton} 
+                  alt="Delete" 
+                  onClick={() => handleDeleteTodo(index, true)}
+                />
               </DoneTodoItem>
             ))}
           </TodoList>

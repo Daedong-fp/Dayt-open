@@ -144,10 +144,14 @@ const ImgContainer = styled.div`
   margin-left: 20px;
 `;
 
-const StyledImage = styled.img`
+const StyledLink = styled(Link)`
+  display: block;
   margin-top: 12px;
   margin-bottom: 12px;
-  display: flex;
+`;
+
+const StyledImage = styled.img`
+  display: block;
 `;
 
 const MainContent = styled.div`
@@ -170,9 +174,9 @@ const HeaderWithSidebar = () => {
         </Logo>
         <NavField>
           <Nav>
-            <Link to="/">MAIN</Link>
+            <Link to="/Main">MAIN</Link>
             <Link to="/workspace">WORKSPACE</Link>
-            <Link to="../components/TodoList.jsx">DAILY</Link>
+            <Link to="/todo">DAILY</Link>
           </Nav>
         </NavField>
         <LogoImg>
@@ -191,9 +195,15 @@ const HeaderWithSidebar = () => {
         </Title>
         <ImgContainer>
           <Button type="reset">내 계정</Button>
-          <StyledImage src={peopleButton} />
-          <StyledImage src={settingButton} />
-          <StyledImage src={logoutButton} />
+          <StyledLink to="/todo">
+            <StyledImage src={peopleButton} alt="My Page" />
+          </StyledLink>
+          <StyledLink to="/setting">
+            <StyledImage src={settingButton} alt="Settings" />
+          </StyledLink>
+          <StyledLink to="/logout">
+            <StyledImage src={logoutButton} alt="Logout" />
+          </StyledLink>
         </ImgContainer>
       </SidebarContainer>
 

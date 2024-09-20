@@ -1,14 +1,66 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import daytLogo from "../images/dayt_logo.png";
+import peopleLogo2 from "../images/peopleLogo2.png";
+import toggleButton from "../images/ToggleButton.png";
+import arrowButton from "../images/Arrow.png";
+import peopleButton from "../images/mypage.svg";
+import settingButton from "../images/option.svg";
+import logoutButton from "../images/logoutbutton.svg";
 
-import daytLogo from '../assest/dayt_logo.png';
-import peopleLogo2 from '../assest/peopleLogo2.png';
-import toggleButton from '../assest/ToggleButton.png';
-import arrowButton from '../assest/Arrow.png';
-import peopleButton from '../assest/mypage.svg';
-import settingButton from '../assest/option.svg';
-import logoutButton from '../assest/logoutbutton.svg';
+export const Header = () => {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
+  return (
+    <>
+      <HeaderContainer>
+        <Logo>
+          <img src={daytLogo} alt="Add" />
+        </Logo>
+        <NavField>
+          <Nav>
+            <Link to="/">MAIN</Link>
+            <Link to="/workspace/main">WORKSPACE</Link>
+            <Link to="/todoList">DAILY</Link>
+          </Nav>
+        </NavField>
+        <LogoImg>
+          <p>User</p>
+          <p>님</p>
+          <img src={peopleLogo2} alt="User" width={20} />
+          <img
+            src={toggleButton}
+            alt="Toggle Sidebar"
+            onClick={toggleSidebar}
+          />
+        </LogoImg>
+      </HeaderContainer>
+
+      <SidebarContainer isVisible={isSidebarVisible}>
+        <Title>
+          <TitleImage src={arrowButton} width="13px" height="13px" />
+          <TitleText>DaedongKing</TitleText>
+          <TitleText>님</TitleText>
+        </Title>
+        <ImgContainer>
+          <Button type="reset">내 계정</Button>
+          <StyledImage src={peopleButton} alt="My Page" />
+          <Link to="/accountSetting">
+            <StyledImage src={settingButton} alt="Settings" />
+          </Link>
+          <StyledImage src={logoutButton} alt="Logout" />
+        </ImgContainer>
+      </SidebarContainer>
+
+      <MainContent>{/* 여기에 라우트와 다른 컨텐츠를 배치 */}</MainContent>
+    </>
+  );
+};
 
 const HeaderContainer = styled.header`
   background-color: #ffffff;
@@ -34,7 +86,7 @@ const Logo = styled.div`
     height: 40px;
     perspective: 100px;
   }
-  &:hover{
+  &:hover {
     transform: translateX(20px);
     transform: rotateY(360deg);
     cursor: pointer;
@@ -80,6 +132,7 @@ const LogoImg = styled.div`
   p {
     font-size: 15px;
     margin: 0;
+    padding: 0 5px;
     &:nth-child(2) {
       padding-left: 5px;
     }
@@ -89,7 +142,7 @@ const LogoImg = styled.div`
     margin-right: 25px;
     cursor: pointer;
   }
-  &:last-child{
+  &:last-child {
     margin-right: 30px;
   }
 `;
@@ -97,7 +150,7 @@ const LogoImg = styled.div`
 const SidebarContainer = styled.div`
   position: fixed;
   top: 50px;
-  right: ${({ isVisible }) => (isVisible ? '0' : '-15vw')};
+  right: ${({ isVisible }) => (isVisible ? "0" : "-15vw")};
   width: 15vw;
   height: calc(100vh - 50px);
   background-color: #ffffff;
@@ -127,91 +180,32 @@ const TitleText = styled.p`
 `;
 
 const Button = styled.button`
-  background-color: #FFF16D;
+  background-color: #fff16d;
   border: none;
   padding: 8px 35px;
   cursor: pointer;
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
   font-weight: 700;
   border-radius: 15px;
   font-size: 15px;
   margin-top: 30px;
   margin-bottom: 10px;
   margin-right: 95px;
+  width: 130px;
+  text-align: center;
 `;
 
 const ImgContainer = styled.div`
   margin-left: 20px;
 `;
 
-const StyledLink = styled(Link)`
-  display: block;
+const StyledImage = styled.img`
   margin-top: 12px;
   margin-bottom: 12px;
-`;
-
-const StyledImage = styled.img`
-  display: block;
+  display: flex;
 `;
 
 const MainContent = styled.div`
   margin-top: 50px;
   padding: 20px;
 `;
-
-const HeaderWithSidebar = () => {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
-  };
-
-  return (
-    <>
-      <HeaderContainer>
-        <Logo>
-          <img src={daytLogo} alt="Add" />
-        </Logo>
-        <NavField>
-          <Nav>
-            <Link to="/Main">MAIN</Link>
-            <Link to="/workspace">WORKSPACE</Link>
-            <Link to="/todo">DAILY</Link>
-          </Nav>
-        </NavField>
-        <LogoImg>
-          <p>User</p>
-          <p>님</p>
-          <img src={peopleLogo2} alt="User" width={20} />
-          <img src={toggleButton} alt="Toggle Sidebar" onClick={toggleSidebar} />
-        </LogoImg>
-      </HeaderContainer>
-
-      <SidebarContainer isVisible={isSidebarVisible}>
-        <Title>
-          <TitleImage src={arrowButton} width="13px" height="13px" />
-          <TitleText>DaedongKing</TitleText>
-          <TitleText>님</TitleText>
-        </Title>
-        <ImgContainer>
-          <Button type="reset">내 계정</Button>
-          <StyledLink to="/todo">
-            <StyledImage src={peopleButton} alt="My Page" />
-          </StyledLink>
-          <StyledLink to="/setting">
-            <StyledImage src={settingButton} alt="Settings" />
-          </StyledLink>
-          <StyledLink to="/logout">
-            <StyledImage src={logoutButton} alt="Logout" />
-          </StyledLink>
-        </ImgContainer>
-      </SidebarContainer>
-
-      <MainContent>
-        {/* 여기에 라우트와 다른 컨텐츠를 배치 */}
-      </MainContent>
-    </>
-  );
-};
-
-export default HeaderWithSidebar;

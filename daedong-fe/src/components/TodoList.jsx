@@ -164,8 +164,12 @@ const TodoBox = styled.div`
   background-color: rgb(255, 255, 255);
   justify-content: flex-start;
   align-items: center;
+<<<<<<< Updated upstream
   width: 440px;
   height: 540px;
+=======
+  height: 500px;
+>>>>>>> Stashed changes
   margin-right: 45px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
@@ -190,7 +194,7 @@ const TodoAdd = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgb(255, 255, 255);
-  width: 320px;
+  width: 85%;
   height: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -233,7 +237,7 @@ const TodoItem = styled.li`
   padding: 8px;
   margin-bottom: 20px;
   height: 50px;
-  width: 320px;
+  width: 85%;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;

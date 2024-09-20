@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 
 import MainpageImg_2 from '../assest/mainPage_img2.png';
@@ -174,6 +175,11 @@ const FadeIn = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  padding: 0;
+  text-decoration-line: none;
+`;
+
 // Main component
 const App = () => {
   useEffect(() => {
@@ -203,7 +209,9 @@ const App = () => {
         <FadeIn className="fade-in">
           <CTA>
             <img src={MainpageImg_2} width={700} alt='' />
-            <button className='Start-Button'>시작하기 ➔</button>
+            <StyledLink to="/todo">
+              <button className='Start-Button'>시작하기 ➔</button>
+            </StyledLink>
           </CTA>
         </FadeIn>
         <FadeIn className="fade-in">
@@ -227,7 +235,7 @@ const App = () => {
         <FadeIn className="fade-in">
           <section>
             <Kanban>
-              <KanbanImg src={Ex_KanbanImg} alt='kanbanimg' width={800} height={420} />
+              <KanbanImg src={Ex_KanbanImg} alt='kanbanimg' width={900} height={470} />
             </Kanban>
           </section>
         </FadeIn>

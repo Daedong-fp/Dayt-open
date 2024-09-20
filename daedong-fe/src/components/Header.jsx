@@ -150,8 +150,13 @@ const LogoImg = styled.div`
 const SidebarContainer = styled.div`
   position: fixed;
   top: 50px;
+<<<<<<< Updated upstream
   right: ${({ isVisible }) => (isVisible ? "0" : "-15vw")};
   width: 15vw;
+=======
+  right: ${({ isVisible }) => (isVisible ? '0' : '-17vw')};
+  width: 17vw;
+>>>>>>> Stashed changes
   height: calc(100vh - 50px);
   background-color: #ffffff;
   border-left: 1px solid rgba(0, 0, 0, 0.295);
@@ -209,3 +214,63 @@ const MainContent = styled.div`
   margin-top: 50px;
   padding: 20px;
 `;
+<<<<<<< Updated upstream
+=======
+
+const HeaderWithSidebar = () => {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
+  return (
+    <>
+      <HeaderContainer>
+        <Logo>
+          <img src={daytLogo} alt="Add" />
+        </Logo>
+        <NavField>
+          <Nav>
+            <Link to="/Main">MAIN</Link>
+            <Link to="/workspace">WORKSPACE</Link>
+            <Link to="/todo">DAILY</Link>
+          </Nav>
+        </NavField>
+        <LogoImg>
+          <p>User</p>
+          <p>님</p>
+          <img src={peopleLogo2} alt="User" width={18} />
+          <img src={toggleButton} alt="Toggle Sidebar" onClick={toggleSidebar} width={23} />
+        </LogoImg>
+      </HeaderContainer>
+
+      <SidebarContainer isVisible={isSidebarVisible}>
+        <Title>
+          <TitleImage src={arrowButton} width="13px" height="13px" />
+          <TitleText>DaedongKing</TitleText>
+          <TitleText>님</TitleText>
+        </Title>
+        <ImgContainer>
+          <Button type="reset">내 계정</Button>
+          <StyledLink to="/todo">
+            <StyledImage src={peopleButton} alt="My Page" />
+          </StyledLink>
+          <StyledLink to="/setting">
+            <StyledImage src={settingButton} alt="Settings" />
+          </StyledLink>
+          <StyledLink to="/logout">
+            <StyledImage src={logoutButton} alt="Logout" />
+          </StyledLink>
+        </ImgContainer>
+      </SidebarContainer>
+
+      <MainContent>
+        {/* 여기에 라우트와 다른 컨텐츠를 배치 */}
+      </MainContent>
+    </>
+  );
+};
+
+export default HeaderWithSidebar;
+>>>>>>> Stashed changes

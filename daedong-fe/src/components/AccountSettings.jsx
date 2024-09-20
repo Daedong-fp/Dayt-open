@@ -38,7 +38,11 @@ export const AccountSettings = () => {
       newPassword,
       confirmPassword,
     });
+<<<<<<< Updated upstream
     // 여기에 서버로 데이터를 전송하는 로직을 추가할 수 있습니다.
+=======
+
+>>>>>>> Stashed changes
   };
 
   return (
